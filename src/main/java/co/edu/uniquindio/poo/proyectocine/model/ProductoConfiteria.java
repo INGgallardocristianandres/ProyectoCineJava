@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.proyectocine.model;
 
-public class ProductoConfiteria {
+public class ProductoConfiteria implements IProducto {
     private String id;
     private String nombre;
     private double precio;
@@ -27,7 +27,9 @@ public class ProductoConfiteria {
     /** @return identificador del producto */
     public String getId() { return id; }
     /** @return nombre del producto */
+    @Override
     public String getNombre() { return nombre; }
+    @Override
     /** @return precio del producto */
     public double getPrecio() { return precio; }
     /** @return categoría del producto */
