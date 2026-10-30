@@ -46,7 +46,7 @@ public class Compra {
         double total = 0.0;
 
         for (Entrada entrada : entradas) {
-            total += entrada.getPrecio();
+            total += entrada.getValor();
         }
 
         for (IProducto producto : productos) {
