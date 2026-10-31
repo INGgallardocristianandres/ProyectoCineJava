@@ -2,6 +2,8 @@ package co.edu.uniquindio.poo.proyectocine.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Representa la tarjeta virtual asociada a un cliente en el sistema CinemaUQ,
@@ -35,6 +37,8 @@ public class TarjetaVirtual {
     public void abonar(double monto) {
         if (monto > 0) {
             this.saldo += monto;
+            movimientos.add(new MovimientoTarjeta(UUID.randomUUID().toString(),
+                    LocalDateTime.now(), TipoMovimiento.ABONO, monto, null));
         }
     }
 
@@ -47,6 +51,8 @@ public class TarjetaVirtual {
     public boolean debitar(double monto) {
         if (monto > 0 && this.saldo >= monto) {
             this.saldo -= monto;
+            movimientos.add(new MovimientoTarjeta(UUID.randomUUID().toString(),
+                    LocalDateTime.now(), TipoMovimiento.DEBITO, monto, null));
             return true;
         }
         return false;

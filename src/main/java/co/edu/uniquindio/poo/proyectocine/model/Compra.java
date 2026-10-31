@@ -34,6 +34,7 @@ public class Compra {
         this.cliente = cliente;
         this.entradas = new ArrayList<>();
         this.productos = new ArrayList<>();
+        this.estadoCompra = new CompraPendiente();
     }
 
     /**
@@ -57,14 +58,29 @@ public class Compra {
         return this.valorTotal;
     }
 
+    public void agregarEntrada(Entrada entrada) {
+        if (entrada != null) entradas.add(entrada);
+        calcularTotal();
+    }
+
+    public void agregarProducto(IProducto producto) {
+        if (producto != null) productos.add(producto);
+        calcularTotal();
+    }
+
     /**
      * Cambia el estado actual de la compra.
      *
      * @param nuevoEstado El nuevo estado que asumirá la compra.
      */
     public void cambiarEstado(IEstadoCompra nuevoEstado) {
+        if (nuevoEstado == null) throw new IllegalArgumentException("El estado es obligatorio");
         this.estadoCompra = nuevoEstado;
     }
+
+    public void procesarPago() { estadoCompra.procesarPago(this); }
+
+    public void cancelar() { estadoCompra.cancelar(this); }
 
     public String getId() {
         return id;

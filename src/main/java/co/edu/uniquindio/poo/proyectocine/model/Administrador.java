@@ -70,7 +70,17 @@ public class Administrador extends Usuario {
      * @param formato Formato de salida (ej. PDF, Excel).
      */
     public void generarReporte(String tipo, String formato) {
-        System.out.println("Generando reporte de " + tipo + " en formato " + formato);
+        ReporteFactory factory = seleccionarFactoryReporte(formato);
+        factory.exportarReporte(tipo, formato);
+    }
+
+    private ReporteFactory seleccionarFactoryReporte(String formato) {
+        if (formato == null) throw new IllegalArgumentException("El formato de reporte es obligatorio");
+        return switch (formato.trim().toLowerCase()) {
+            case "txt" -> new ReporteTXT();
+            case "pdf" -> new ReportePDF();
+            default -> throw new IllegalArgumentException("Formato de reporte no soportado: " + formato);
+        };
     }
 
     public String getNivelAcceso() {

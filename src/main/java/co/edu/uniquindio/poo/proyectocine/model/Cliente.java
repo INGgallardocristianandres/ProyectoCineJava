@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.proyectocine.model;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Representa a un cliente registrado en el sistema CinemaUQ, el cual hereda
@@ -22,6 +23,7 @@ public class Cliente extends Usuario {
     public Cliente(String id, String nombre, String correo, String contrasenia, String telefono) {
         super(id, nombre, correo, contrasenia);
         this.telefono = telefono;
+        this.historialcompras = new ArrayList<>();
     }
 
     /**

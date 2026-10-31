@@ -4,5 +4,5 @@ module co.edu.uniquindio.poo.proyectocine {
 
 
     opens co.edu.uniquindio.poo.proyectocine to javafx.fxml;
-    exports co.edu.uniquindio.poo.proyectocine;
+    exports co.edu.uniquindio.poo.proyectocine.model;
 }
