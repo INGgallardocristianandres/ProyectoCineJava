@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.MainViewController" styleClass="app-shell" stylesheets="@cinema.css" prefWidth="1280" prefHeight="850">
+<left><VBox fx:id="menuLateral" prefWidth="226" minWidth="226" spacing="7" styleClass="sidebar">
+<HBox spacing="12" alignment="CENTER_LEFT" styleClass="brand"><Label text="C" styleClass="brand-mark"/><VBox spacing="2"><Label text="CinemaUQ" styleClass="brand-name"/></VBox></HBox>
+<Label text="TU CINE" styleClass="nav-caption"/>
+<Button text="Clientes" onAction="#abrirClientes" userData="Cliente" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Películas" onAction="#abrirPeliculas" userData="Pelicula" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Salas" onAction="#abrirSalas" userData="Sala" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Funciones" onAction="#abrirFunciones" userData="Funcion" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Compras" onAction="#abrirCompras" userData="Compra" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Confitería" onAction="#abrirConfiteria" userData="Confiteria" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Tarjetas" onAction="#abrirTarjetas" userData="TarjetaVirtual" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Puntos" onAction="#abrirPuntos" userData="Puntos" maxWidth="Infinity" styleClass="nav-button"/>
+<Button text="Reportes" onAction="#abrirReportes" userData="Reporte" maxWidth="Infinity" styleClass="nav-button"/>
+<Region VBox.vgrow="ALWAYS"/>
+<VBox spacing="7" styleClass="sidebar-footer"><Label text="Luces, cámara, acción." styleClass="footer-title" wrapText="true"/><Label text="Todo para una gran función." styleClass="footer-caption" wrapText="true"/></VBox>
+</VBox></left>
+<center><StackPane fx:id="contenido"/></center>
+</BorderPane>
