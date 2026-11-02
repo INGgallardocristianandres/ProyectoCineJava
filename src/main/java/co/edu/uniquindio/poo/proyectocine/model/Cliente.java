@@ -1,4 +1,5 @@
 package co.edu.uniquindio.poo.proyectocine.model;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -57,6 +58,7 @@ public class Cliente extends Usuario {
         return 0;
     }
 
+
     /**
      * Permite redimir una cantidad específica de puntos a cambio de un beneficio.
      *
@@ -64,10 +66,25 @@ public class Cliente extends Usuario {
      * @param beneficio Descripción del beneficio obtenido.
      * @return Mensaje de confirmación al redimir puntos.
      */
-    public String redimirPuntos(int cantidad, String beneficio) {
-        if (this.puntos != null && this.puntos.getCantidadPuntos() >= cantidad) {
-            this.puntos.descontarPuntos(cantidad);
-            return "Beneficio obtenido: " + beneficio;
+    public String redimirPuntos(int cantidad, String beneficio, Funcion funcion, Asiento asiento, IProducto producto) {
+        if (this.puntos != null && this.puntos.gastarPuntos(cantidad)) {
+            if ("ENTRADA".equalsIgnoreCase(beneficio) && funcion != null && asiento != null && asiento.estaDisponible()) {
+                asiento.cambiarEstado(EstadoAsiento.OCUPADO);
+                Compra compraBeneficio = new Compra("REDIMIDO" + System.currentTimeMillis(), LocalDateTime.now(), 0.0, this);
+                compraBeneficio.agregarEntrada(new Entrada("ENTRADA-REDIMIDA-" + System.currentTimeMillis(), 0.0, funcion, asiento));
+                compraBeneficio.procesarPago();
+                realizarCompra(compraBeneficio);
+                return "Entrada redimida exitosamente para el asiento " + asiento.getId();
+            }
+            else if ("PRODUCTO".equalsIgnoreCase(beneficio) && producto != null) {
+                Compra compraBeneficio = new Compra("REDIMIDO-" + System.currentTimeMillis(), LocalDateTime.now(), 0.0, this);
+                compraBeneficio.agregarProducto(producto);
+                compraBeneficio.procesarPago();
+                realizarCompra(compraBeneficio);
+                return "Producto redimido exitosamente: " + producto.getNombre();
+            }
+
+            return "Beneficio redimido con éxito: " + beneficio;
         }
         return "No cuenta con suficientes puntos para redimir este beneficio.";
     }

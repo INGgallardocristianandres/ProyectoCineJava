@@ -1,14 +1,14 @@
 package co.edu.uniquindio.poo.proyectocine.viewController;
 
+import co.edu.uniquindio.poo.proyectocine.controller.MainController;
 import co.edu.uniquindio.poo.proyectocine.model.*;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.*;
 
 import javafx.util.StringConverter;
 import java.util.function.Function;
 public abstract class BaseViewController {
-    protected final MainViewController controller = MainViewController.getInstancia();
+    protected final MainController controller = MainController.getInstancia();
     protected void ejecutar(Runnable tarea) { AlertasViewController.ejecutar(tarea); }
     protected void informar(String texto) { AlertasViewController.informar(texto); }
     protected int entero(TextField campo) { return Integer.parseInt(campo.getText().trim()); }

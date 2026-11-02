@@ -9,6 +9,7 @@ import java.util.UUID;
  */
 public class CompraFacade {
     private final IPasarelaPago pasarelaPago;
+    private static final double VALOR_POR_PUNTO = 1000.0;
 
     public CompraFacade(IPasarelaPago pasarelaPago) {
         if (pasarelaPago == null) {
@@ -22,7 +23,7 @@ public class CompraFacade {
     }
 
     /**
-     * Metodo que permite realziar la compra con todo aquello que necesita para cumplirse y ser valida para el programa
+     * Metodo que permite realizar la compra con todo aquello que necesita para cumplirse y ser valida para el programa
      * @param cliente
      * @param funcion
      * @param asientos
@@ -48,6 +49,14 @@ public class CompraFacade {
         for (IProducto producto : productos) compra.agregarProducto(producto);
         compra.procesarPago();
         cliente.realizarCompra(compra);
+        if (cliente.getPuntos() != null) {
+            int puntosGanados = (int) (total / VALOR_POR_PUNTO);
+            if (puntosGanados > 0) {
+                cliente.getPuntos().acumularPuntos(puntosGanados);
+            }
+        }
+
         return true;
     }
-}
+    }
+

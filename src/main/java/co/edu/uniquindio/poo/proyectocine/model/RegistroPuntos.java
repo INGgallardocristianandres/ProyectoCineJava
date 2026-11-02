@@ -20,7 +20,7 @@ public class RegistroPuntos {
     public RegistroPuntos(int puntos) {
         this.puntos = puntos;
         this.fechaObtencion = LocalDate.now();
-        this.fechaVencimiento = LocalDate.now().plusMonths(6);
+        this.fechaVencimiento = LocalDate.now().plusYears(1);
     }
 
     /**

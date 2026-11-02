@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.proyectocine.viewController;
+package co.edu.uniquindio.poo.proyectocine.controller;
 
 import co.edu.uniquindio.poo.proyectocine.model.*;
 import java.time.LocalDateTime;
@@ -10,12 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
-public class MainViewController {
-    private static final MainViewController INSTANCIA = new MainViewController();
+public class MainController {
+    private static final MainController INSTANCIA = new MainController();
     private final List<Pelicula> peliculas = new ArrayList<>();
     private final List<Sala> salas = new ArrayList<>();
     private final List<IProducto> productos = new ArrayList<>();
-    public static MainViewController getInstancia() { return INSTANCIA; }
+    public static MainController getInstancia() { return INSTANCIA; }
     public List<Pelicula> listarPeliculas() {
         for (Funcion f : listarFunciones()) if (!peliculas.contains(f.getPelicula())) peliculas.add(f.getPelicula());
         return List.copyOf(peliculas);
@@ -70,12 +70,12 @@ public class MainViewController {
     private final CinemaUQ cinema = CinemaUQ.getInstancia();
     private final CompraFacade compras;
 
-    public MainViewController() {
+    public MainController() {
         this(new CompraFacade(new PasarelaPagoAdapter(new PasarelaExterna(
                 System.getenv("CINEMA_API_KEY"), System.getenv("CINEMA_URL")))));
     }
 
-    public MainViewController(CompraFacade compras) {
+    public MainController(CompraFacade compras) {
         this.compras = Objects.requireNonNull(compras);
     }
 

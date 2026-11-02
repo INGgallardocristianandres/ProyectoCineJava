@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.MainViewController" styleClass="app-shell" stylesheets="@cinema.css" prefWidth="1280" prefHeight="850">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.controller.MainController" styleClass="app-shell" stylesheets="@cinema.css" prefWidth="1280" prefHeight="850">
 <left><VBox fx:id="menuLateral" prefWidth="226" minWidth="226" spacing="7" styleClass="sidebar">
 <HBox spacing="12" alignment="CENTER_LEFT" styleClass="brand"><Label text="C" styleClass="brand-mark"/><VBox spacing="2"><Label text="CinemaUQ" styleClass="brand-name"/></VBox></HBox>
 <Label text="TU CINE" styleClass="nav-caption"/>

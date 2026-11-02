@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.proyectocine.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class CuentaPuntos {
      */
     public CuentaPuntos(int saldoTotal) {
         this.saldoTotal = saldoTotal;
-        this.registroPuntos = new ArrayList<RegistroPuntos>();
+        this.registroPuntos = new ArrayList<>();
     }
 
     /**
@@ -28,12 +29,31 @@ public class CuentaPuntos {
      * @return true si la operación fue exitosa, false si no hay suficientes puntos.
      */
     public boolean gastarPuntos(int puntosRequeridos) {
-        if (this.saldoTotal >= puntosRequeridos) {
-            this.saldoTotal -= puntosRequeridos;
-            return true;
+        // Primero eliminamos los que ya vencieron para estar seguros
+        limpiarPuntosVencidos();
+
+        if (this.saldoTotal < puntosRequeridos || puntosRequeridos <= 0) {
+            return false;
         }
-        return false;
+        int puntosPorDescontar = puntosRequeridos;
+        registroPuntos.sort(Comparator.comparing(RegistroPuntos::getFechaVencimiento));
+        List<RegistroPuntos> registrosAAgotar = new ArrayList<>();
+        for (RegistroPuntos registro : registroPuntos) {
+            if (puntosPorDescontar <= 0) break;
+            if (registro.getPuntos() <= puntosPorDescontar) {
+                puntosPorDescontar -= registro.getPuntos();
+                registrosAAgotar.add(registro);
+            } else {
+                registro.setPuntos(registro.getPuntos() - puntosPorDescontar);
+                puntosPorDescontar = 0;
+            }
+        }
+        registroPuntos.removeAll(registrosAAgotar);
+        this.saldoTotal -= puntosRequeridos;
+        return true;
     }
+
+
 
     /**
      * Acumula una nueva cantidad de puntos generando un registro asociado.
@@ -66,7 +86,7 @@ public class CuentaPuntos {
      *
      * @return El saldo total de puntos actuales.
      */
-    public int getCantidadPuntos() {
+    public int getCantidadPuntos(){limpiarPuntosVencidos();
         return this.saldoTotal;
     }
 
