@@ -1,4 +1,3 @@
-/* CinemaUQ: paleta cálida y navegación de alto contraste. */
 .root { -fx-font-family: "Segoe UI"; -fx-font-size: 13px; -fx-text-fill: #253641; -fx-background-color: #f4f3ef; -fx-accent: #bd593c; -fx-focus-color: #bd593c; -fx-faint-focus-color: rgba(189,89,60,0.12); }
 .label { -fx-text-fill: #253641; }
 .app-shell { -fx-background-color: #f4f3ef; }
