@@ -21,6 +21,14 @@ public class CompraFacade {
         return pasarelaPago.efectuarTransaccionExterna(monto, numeroCuenta);
     }
 
+    /**
+     * Metodo que permite realziar la compra con todo aquello que necesita para cumplirse y ser valida para el programa
+     * @param cliente
+     * @param funcion
+     * @param asientos
+     * @param productos
+     * @return
+     */
     public boolean procesarCompra(Cliente cliente, Funcion funcion,
                                   List<Asiento> asientos, List<IProducto> productos) {
         if (cliente == null || funcion == null || !funcion.isActivo()
