@@ -13,6 +13,7 @@ public class CompraViewController extends BaseViewController {
     @FXML private ListView<Asiento> lvAsientos;
     @FXML private ListView<IProducto> lvCarrito;
     @FXML private Label lblTotal;
+    @FXML private Label lblPuntos;
     @FXML private void initialize() {
         clientes(cbCliente);
         configurar(cbFuncion, controller.listarFunciones(), f -> f.getPelicula().getTitulo()
@@ -25,6 +26,7 @@ public class CompraViewController extends BaseViewController {
                 (ListChangeListener<Asiento>) c -> total());
         lvCarrito.getItems().addListener((ListChangeListener<IProducto>) c -> total());
         total();
+        actualizarPuntos();
     }
     @FXML private void cargarAsientos() {
         lvAsientos.getItems().setAll(controller.listarAsientos(cbFuncion.getValue()));
@@ -39,11 +41,21 @@ public class CompraViewController extends BaseViewController {
         if (i >= 0) lvCarrito.getItems().remove(i);
     }
     @FXML private void comprar() { ejecutar(() -> {
+        Cliente cliente = Objects.requireNonNull(cbCliente.getValue(), "Selecciona un cliente");
+        int puntosAntes = cliente.consultarPuntos();
         Compra compra = controller.comprar(cbCliente.getValue(), cbFuncion.getValue(),
                 List.copyOf(lvAsientos.getSelectionModel().getSelectedItems()), List.copyOf(lvCarrito.getItems()));
         lvCarrito.getItems().clear(); cargarAsientos();
-        informar("Compra registrada: " + compra.getId() + "\nTotal: " + compra.getValorTotal());
+        actualizarPuntos();
+        int ganados = cliente.consultarPuntos() - puntosAntes;
+        informar("Compra registrada: " + compra.getId() + "\nTotal: " + compra.getValorTotal()
+                + "\nPuntos ganados: " + ganados + "\nPuntos disponibles: " + cliente.consultarPuntos());
     }); }
+    @FXML private void actualizarPuntos() {
+        Cliente cliente = cbCliente.getValue();
+        lblPuntos.setText(cliente == null ? "Selecciona un cliente para ver sus puntos"
+                : "Puntos disponibles: " + cliente.consultarPuntos());
+    }
     private void total() {
         Funcion f = cbFuncion.getValue();
         double total = f == null ? 0 : f.getPrecioEntrada()

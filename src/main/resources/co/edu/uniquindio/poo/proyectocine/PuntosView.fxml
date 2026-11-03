@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.PuntosViewController" fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css"><content><VBox spacing="22" styleClass="page"><Label text="Puntos" styleClass="page-title" wrapText="true"/><VBox spacing="18" styleClass="card"><VBox spacing="5"><Label text="Puntos del cliente" styleClass="card-title" wrapText="true"/><Label text="Selecciona una cuenta para consultar su información." styleClass="muted" wrapText="true"/></VBox><VBox spacing="7"><Label text="Cliente" styleClass="field-label" wrapText="true"/><ComboBox fx:id="cbCliente" promptText="Selecciona un cliente" maxWidth="Infinity" onAction="#consultar"/></VBox><TextArea fx:id="taPuntos" editable="false" wrapText="true" prefHeight="270" styleClass="detail-area"/></VBox></VBox></content></ScrollPane>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.PuntosViewController"
+    fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css">
+<content><VBox spacing="22" styleClass="page">
+    <Label text="Puntos" styleClass="page-title"/>
+    <VBox spacing="16" styleClass="card">
+        <Label text="Cuenta de puntos" styleClass="card-title"/>
+        <Label text="Cliente" styleClass="field-label"/>
+        <ComboBox fx:id="cbCliente" promptText="Selecciona un cliente" maxWidth="Infinity" onAction="#consultar"/>
+        <Label fx:id="lblSaldo" text="Puntos disponibles: 0" styleClass="total-label"/>
+        <Button text="Actualizar saldo" onAction="#consultar" styleClass="secondary-button"/>
+        <TextArea fx:id="taPuntos" editable="false" wrapText="true" prefHeight="140" styleClass="detail-area"/>
+    </VBox>
+    <VBox spacing="16" styleClass="card">
+        <Label text="Canjear un beneficio" styleClass="card-title"/>
+        <Label text="El costo se aplica automáticamente según la configuración guardada." styleClass="muted" wrapText="true"/>
+        <Label text="Tipo de beneficio" styleClass="field-label"/>
+        <ComboBox fx:id="cbTipo" maxWidth="Infinity" onAction="#cambiarTipo"/>
+        <VBox fx:id="panelEntrada" spacing="10">
+            <Label text="Función" styleClass="field-label"/>
+            <ComboBox fx:id="cbFuncion" promptText="Selecciona una función" maxWidth="Infinity" onAction="#cargarAsientos"/>
+            <Label text="Asiento disponible" styleClass="field-label"/>
+            <ComboBox fx:id="cbAsiento" promptText="Selecciona un asiento" maxWidth="Infinity" onAction="#actualizarEstado"/>
+        </VBox>
+        <VBox fx:id="panelProducto" spacing="10">
+            <Label text="Producto" styleClass="field-label"/>
+            <ComboBox fx:id="cbProducto" promptText="Selecciona un producto" maxWidth="Infinity" onAction="#actualizarEstado"/>
+        </VBox>
+        <Label fx:id="lblCosto" wrapText="true" styleClass="field-label"/>
+        <Button fx:id="btnCanjear" text="Canjear puntos" onAction="#canjear" styleClass="primary-button" disable="true"/>
+    </VBox>
+    <TitledPane text="Configuración de costos de los beneficios" expanded="false">
+        <content><VBox spacing="14" styleClass="card">
+            <Label text="Define el costo una vez para cada función o producto." styleClass="muted" wrapText="true"/>
+            <Label text="Tipo de beneficio" styleClass="field-label"/>
+            <ComboBox fx:id="cbTipoConfig" maxWidth="Infinity" onAction="#cambiarTipoConfig"/>
+            <Label text="Beneficio" styleClass="field-label"/>
+            <ComboBox fx:id="cbBeneficioConfig" promptText="Selecciona el beneficio" maxWidth="Infinity" onAction="#mostrarCostoConfig"/>
+            <Label text="Costo en puntos" styleClass="field-label"/>
+            <TextField fx:id="txtCostoConfig" promptText="Número entero mayor que cero"/>
+            <Button text="Guardar costo" onAction="#guardarCosto" styleClass="primary-button"/>
+        </VBox></content>
+    </TitledPane>
+</VBox></content>
+</ScrollPane>

@@ -289,4 +289,77 @@ public class MainController {
             throw new IllegalStateException("No se pudo abrir la pantalla " + pantalla, e);
         }
     }
+
+    // Los costos se configuran una vez por beneficio y se aplican al canjear.
+    private final Map<Funcion, Integer> costosEntrada = new IdentityHashMap<>();
+    private final Map<IProducto, Integer> costosProducto = new IdentityHashMap<>();
+
+    public int consultarCostoEntrada(Funcion funcion) {
+        return costosEntrada.getOrDefault(funcion, 0);
+    }
+
+    public int consultarCostoProducto(IProducto producto) {
+        return costosProducto.getOrDefault(producto, 0);
+    }
+
+    public void configurarCostoEntrada(Funcion funcion, int costo) {
+        validarFuncionCanje(funcion);
+        validarCosto(costo);
+        costosEntrada.put(funcion, costo);
+    }
+
+    public void configurarCostoProducto(IProducto producto, int costo) {
+        validarProductoCanje(producto);
+        validarCosto(costo);
+        costosProducto.put(producto, costo);
+    }
+
+    public String canjearEntrada(Cliente cliente, Funcion funcion, Asiento asiento) {
+        validarFuncionCanje(funcion);
+        if (asiento == null || !listarAsientos(funcion).contains(asiento)
+                || !asiento.estaDisponible()) {
+            throw new IllegalArgumentException("Selecciona un asiento disponible de esta función");
+        }
+        int costo = consultarCostoEntrada(funcion);
+        validarClienteCanje(cliente, costo);
+        return cliente.redimirPuntos(costo, "ENTRADA", funcion, asiento, null);
+    }
+
+    public String canjearProducto(Cliente cliente, IProducto producto) {
+        validarProductoCanje(producto);
+        int costo = consultarCostoProducto(producto);
+        validarClienteCanje(cliente, costo);
+        return cliente.redimirPuntos(costo, "PRODUCTO", null, null, producto);
+    }
+
+    private void validarCosto(int costo) {
+        if (costo <= 0) {
+            throw new IllegalArgumentException("El costo debe ser un número entero mayor que cero");
+        }
+    }
+
+    private void validarClienteCanje(Cliente cliente, int costo) {
+        if (cliente == null || !listarClientes().contains(cliente) || cliente.getPuntos() == null) {
+            throw new IllegalArgumentException("Selecciona un cliente con cuenta de puntos");
+        }
+        if (costo <= 0) {
+            throw new IllegalArgumentException("Primero configura el costo en puntos del beneficio");
+        }
+        if (cliente.consultarPuntos() < costo) {
+            throw new IllegalArgumentException("El cliente no tiene suficientes puntos");
+        }
+    }
+
+    private void validarFuncionCanje(Funcion funcion) {
+        if (funcion == null || !listarFunciones().contains(funcion)
+                || !funcion.getFechaHora().isAfter(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Selecciona una función futura y activa");
+        }
+    }
+
+    private void validarProductoCanje(IProducto producto) {
+        if (producto == null || !listarProductos().contains(producto)) {
+            throw new IllegalArgumentException("Selecciona un producto del catálogo");
+        }
+    }
 }
