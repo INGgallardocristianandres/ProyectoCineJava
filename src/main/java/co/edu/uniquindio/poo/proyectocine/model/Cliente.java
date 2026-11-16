@@ -58,6 +58,14 @@ public class Cliente extends Usuario {
         return 0;
     }
 
+    /**
+     * Conserva la operación general de redención usada por versiones
+     * anteriores del sistema. Las redenciones específicas de entradas y
+     * productos usan la sobrecarga con los datos adicionales.
+     */
+    public String redimirPuntos(int cantidad, String beneficio) {
+        return redimirPuntos(cantidad, beneficio, null, null, null);
+    }
 
     /**
      * Permite redimir una cantidad específica de puntos a cambio de un beneficio.

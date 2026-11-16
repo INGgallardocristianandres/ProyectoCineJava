@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class MainController {
+    private static boolean datosEjemploCargados;
     private static final MainController INSTANCIA = new MainController();
     private final List<Pelicula> peliculas = new ArrayList<>();
     private final List<Sala> salas = new ArrayList<>();
@@ -73,10 +74,48 @@ public class MainController {
     public MainController() {
         this(new CompraFacade(new PasarelaPagoAdapter(new PasarelaExterna(
                 System.getenv("CINEMA_API_KEY"), System.getenv("CINEMA_URL")))));
+        if (!datosEjemploCargados) {
+            cargarDatosDeEjemplo();
+            datosEjemploCargados = true;
+        }
     }
 
     public MainController(CompraFacade compras) {
         this.compras = Objects.requireNonNull(compras);
+    }
+
+    /**
+     * Carga información inicial para que la interfaz sea demostrable al
+     * ejecutar la aplicación. Los datos son temporales y viven en memoria.
+     */
+    private void cargarDatosDeEjemplo() {
+        Cliente ana = registrarCliente("Ana Torres", "ana.torres@cinemauq.com",
+                "123456", "3001112233");
+        Cliente brayan = registrarCliente("Brayan Gómez", "brayan.gomez@cinemauq.com",
+                "123456", "3002223344");
+        registrarCliente("Carolina Ríos", "carolina.rios@cinemauq.com",
+                "123456", "3003334455");
+        recargar(ana, 100_000);
+        recargar(brayan, 80_000);
+
+        Pelicula aventura = registrarPelicula("La última aventura", GeneroPelicula.AVENTURA,
+                ClasificacionPelicula.MAYORES_12, 120);
+        Pelicula ciencia = registrarPelicula("Horizonte estelar", GeneroPelicula.CIENCIA_FICCION,
+                ClasificacionPelicula.MAYORES_7, 110);
+        Pelicula terror = registrarPelicula("Ecos en la oscuridad", GeneroPelicula.TERROR,
+                ClasificacionPelicula.MAYORES_18, 95);
+
+        Sala sala1 = registrarSala(1, 30);
+        Sala sala2 = registrarSala(2, 24);
+        Sala sala3 = registrarSala(3, 20);
+        LocalDateTime inicio = LocalDateTime.now().plusDays(1).withSecond(0).withNano(0);
+        programarFuncion(aventura, sala1, inicio.withHour(14).withMinute(0), 18_000);
+        programarFuncion(ciencia, sala2, inicio.withHour(16).withMinute(30), 20_000);
+        programarFuncion(terror, sala3, inicio.withHour(19).withMinute(0), 17_000);
+
+        registrarProducto("Combo crispetas y gaseosa", 15_000);
+        registrarProducto("Nachos con queso", 12_000);
+        registrarProducto("Agua", 4_000);
     }
 
     public List<Cliente> listarClientes() {
