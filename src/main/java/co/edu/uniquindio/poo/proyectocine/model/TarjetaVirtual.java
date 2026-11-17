@@ -98,4 +98,18 @@ public class TarjetaVirtual {
     public void setMovimientos(List<MovimientoTarjeta> movimientos) {
         this.movimientos = movimientos;
     }
+
+    /**
+     * Ejecuta una recarga de saldo en la tarjeta virtual y deja un registro de auditoría en el historial
+     * de movimientos vinculando al administrador que autorizó la operación
+     * @param monto
+     * @param adminResponsable
+     */
+    public void abonar(double monto, Administrador adminResponsable) {
+        if (monto > 0) {
+            this.saldo += monto;
+            movimientos.add(new MovimientoTarjeta(UUID.randomUUID().toString(),
+                    LocalDateTime.now(), TipoMovimiento.ABONO, monto, adminResponsable));
+        }
+    }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.LoginViewController" fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css"><content><VBox spacing="22" styleClass="page">
+    <Label text="Bienvenido a CinemaUQ" styleClass="page-title" wrapText="true"/>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="Iniciar sesión" styleClass="card-title"/><Label text="Demo Admin: admin@cinemauq.edu.co / admin123 | Demo Cliente: ana@correo.com / 1234" styleClass="muted" wrapText="true"/></VBox>
+        <GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children>
+            <VBox GridPane.columnIndex="0" spacing="7"><Label text="Correo electrónico" styleClass="field-label"/><TextField fx:id="txtCorreoLogin" promptText="correo@ejemplo.com"/></VBox>
+            <VBox GridPane.columnIndex="1" spacing="7"><Label text="Contraseña" styleClass="field-label"/><PasswordField fx:id="txtPassLogin" promptText="Contraseña"/></VBox>
+        </children></GridPane>
+        <Button text="Ingresar al sistema" onAction="#ingresar" styleClass="primary-button"/>
+    </VBox>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="¿No tienes cuenta? Regístrate como cliente" styleClass="card-title"/><Label text="Se creará automáticamente tu tarjeta virtual y cuenta de puntos." styleClass="muted"/></VBox>
+        <GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children>
+            <VBox GridPane.columnIndex="0" spacing="7"><Label text="Nombre completo" styleClass="field-label"/><TextField fx:id="txtNombre" promptText="Ej. Laura Gómez"/></VBox>
+            <VBox GridPane.columnIndex="1" spacing="7"><Label text="Correo electrónico" styleClass="field-label"/><TextField fx:id="txtCorreoReg" promptText="laura@correo.com"/></VBox>
+        </children></GridPane>
+        <GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children>
+            <VBox GridPane.columnIndex="0" spacing="7"><Label text="Contraseña" styleClass="field-label"/><PasswordField fx:id="txtPassReg" promptText="Escribe una contraseña"/></VBox>
+            <VBox GridPane.columnIndex="1" spacing="7"><Label text="Teléfono" styleClass="field-label"/><TextField fx:id="txtTelefono" promptText="3001234567"/></VBox>
+        </children></GridPane>
+        <Button text="Crear cuenta de cliente" onAction="#registrarCliente" styleClass="secondary-button"/>
+    </VBox>
+</VBox></content></ScrollPane>

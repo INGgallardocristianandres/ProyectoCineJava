@@ -15,6 +15,6 @@ public class RembolsoParcialStrategy implements IEstrategiaRembolso {
      */
     @Override
     public double calcularRembolso(double valorPagado, double horasRestantes) {
-        return valorPagado * 0.5;
+        return valorPagado * 0.8;
     }
 }

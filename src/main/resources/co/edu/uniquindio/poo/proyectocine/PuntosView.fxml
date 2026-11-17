@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.PuntosViewController" fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css"><content><VBox spacing="22" styleClass="page"><Label text="Puntos" styleClass="page-title" wrapText="true"/><VBox spacing="18" styleClass="card"><VBox spacing="5"><Label text="Puntos del cliente" styleClass="card-title" wrapText="true"/><Label text="Selecciona una cuenta para consultar su información." styleClass="muted" wrapText="true"/></VBox><VBox spacing="7"><Label text="Cliente" styleClass="field-label" wrapText="true"/><ComboBox fx:id="cbCliente" promptText="Selecciona un cliente" maxWidth="Infinity" onAction="#consultar"/></VBox><TextArea fx:id="taPuntos" editable="false" wrapText="true" prefHeight="270" styleClass="detail-area"/></VBox></VBox></content></ScrollPane>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.PuntosViewController" fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css"><content><VBox spacing="22" styleClass="page">
+    <Label text="Programa de Puntos CinemaUQ" styleClass="page-title" wrapText="true"/>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="Redimir puntos" styleClass="card-title"/><Label text="Equivalencias: Producto = 50 pts | Combo = 90 pts | Entrada = 100 pts (Se descuentan primero los más próximos a vencer)." styleClass="muted" wrapText="true"/></VBox>
+        <ComboBox fx:id="cbBeneficio" promptText="Tipo de beneficio" maxWidth="Infinity"/>
+        <GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children>
+            <VBox GridPane.columnIndex="0" spacing="7"><Label text="Función (si redimes ENTRADA)" styleClass="field-label"/><ComboBox fx:id="cbFuncion" promptText="Selecciona función" maxWidth="Infinity" onAction="#cargarAsientos"/></VBox>
+            <VBox GridPane.columnIndex="1" spacing="7"><Label text="Asiento disponible" styleClass="field-label"/><ComboBox fx:id="cbAsiento" promptText="Selecciona asiento" maxWidth="Infinity"/></VBox>
+        </children></GridPane>
+        <VBox spacing="7"><Label text="Producto o Combo (si redimes PRODUCTO o COMBO)" styleClass="field-label"/><ComboBox fx:id="cbProducto" promptText="Selecciona producto o combo" maxWidth="Infinity"/></VBox>
+        <Button text="Redimir puntos ahora" onAction="#redimir" styleClass="primary-button"/>
+    </VBox>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="Detalle de puntos por fecha de vencimiento (FIFO)" styleClass="card-title"/></VBox>
+        <TextArea fx:id="taPuntos" editable="false" wrapText="true" prefHeight="220" styleClass="detail-area"/>
+    </VBox>
+</VBox></content></ScrollPane>

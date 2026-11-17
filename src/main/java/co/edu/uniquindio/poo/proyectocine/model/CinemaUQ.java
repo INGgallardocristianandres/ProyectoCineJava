@@ -5,11 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *  Clase central Implementa Singleton para mantener un único cinema. */
+ * Clase central. Implementa Singleton para mantener un único cinema.
+ */
 public final class CinemaUQ {
     private static final CinemaUQ INSTANCIA = new CinemaUQ();
     private final List<Funcion> cartelera = new ArrayList<>();
     private final List<Cliente> clientes = new ArrayList<>();
+    private final List<Administrador> administradores = new ArrayList<>();
+    private final List<Pelicula> peliculas = new ArrayList<>();
+    private final List<Sala> salas = new ArrayList<>();
+    private final List<IProducto> productos = new ArrayList<>();
 
     private CinemaUQ() { }
 
@@ -35,6 +40,55 @@ public final class CinemaUQ {
 
     public List<Cliente> getClientes() {
         return Collections.unmodifiableList(clientes);
+    }
+
+    public void registrarAdministrador(Administrador admin) {
+        if (admin != null && !administradores.contains(admin)) administradores.add(admin);
+    }
+
+    public List<Administrador> getAdministradores() {
+        return Collections.unmodifiableList(administradores);
+    }
+
+    public void agregarPelicula(Pelicula pelicula) {
+        if (pelicula != null && !peliculas.contains(pelicula)) peliculas.add(pelicula);
+    }
+
+    public void eliminarPelicula(Pelicula pelicula) {
+        peliculas.remove(pelicula);
+    }
+
+    public List<Pelicula> getPeliculas() {
+        return Collections.unmodifiableList(peliculas);
+    }
+
+    public void agregarSala(Sala sala) {
+        if (sala != null && salas.stream().noneMatch(s -> s.getNumeroSala() == sala.getNumeroSala())) {
+            salas.add(sala);
+        }
+    }
+
+    public List<Sala> getSalas() {
+        return Collections.unmodifiableList(salas);
+    }
+
+    public void agregarProducto(IProducto producto) {
+        if (producto != null && !productos.contains(producto)) productos.add(producto);
+    }
+
+    public List<IProducto> getProductos() {
+        return Collections.unmodifiableList(productos);
+    }
+
+    public Usuario autenticar(String correo, String contrasenia) {
+        if (correo == null || contrasenia == null) return null;
+        for (Administrador admin : administradores) {
+            if (admin.iniciarSesion(correo.trim(), contrasenia)) return admin;
+        }
+        for (Cliente cliente : clientes) {
+            if (cliente.iniciarSesion(correo.trim(), contrasenia)) return cliente;
+        }
+        return null;
     }
 
     public void iniciarSistema() {

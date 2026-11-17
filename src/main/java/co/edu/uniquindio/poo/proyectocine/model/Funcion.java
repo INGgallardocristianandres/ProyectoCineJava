@@ -27,4 +27,7 @@ public class Funcion {
     public Pelicula getPelicula() { return pelicula; }
     public Sala getSala() { return sala; }
     public boolean isActivo() { return activo; }
+    public void cancelarFuncion(){
+        this.activo = false;
+    }
 }

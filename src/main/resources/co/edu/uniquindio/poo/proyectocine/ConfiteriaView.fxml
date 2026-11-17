@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.ConfiteriaViewController" fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css"><content><VBox spacing="22" styleClass="page"><Label text="Confitería" styleClass="page-title" wrapText="true"/><VBox spacing="18" styleClass="card"><VBox spacing="5"><Label text="Agregar producto" styleClass="card-title" wrapText="true"/><Label text="El producto estará disponible en la pantalla de compras." styleClass="muted" wrapText="true"/></VBox><GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children><VBox GridPane.columnIndex="0"><VBox spacing="7"><Label text="Nombre del producto" styleClass="field-label" wrapText="true"/><TextField fx:id="txtNombre" promptText="Ej. Palomitas medianas" maxWidth="Infinity"/></VBox></VBox><VBox GridPane.columnIndex="1"><VBox spacing="7"><Label text="Precio" styleClass="field-label" wrapText="true"/><TextField fx:id="txtPrecio" promptText="Valor sin separadores de miles" maxWidth="Infinity"/></VBox></VBox></children></GridPane><Button text="Registrar producto" onAction="#registrar" styleClass="primary-button"/></VBox><VBox spacing="18" styleClass="card"><VBox spacing="5"><Label text="Productos de confitería" styleClass="card-title" wrapText="true"/><Label text="Tu selección para disfrutar frente a la pantalla." styleClass="muted" wrapText="true"/></VBox><ListView fx:id="lvProductos" prefHeight="230" minHeight="150"><placeholder><Label text="Agrega productos para comenzar." styleClass="empty-label" wrapText="true"/></placeholder></ListView></VBox></VBox></content></ScrollPane>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.proyectocine.viewController.ConfiteriaViewController" fitToWidth="true" hbarPolicy="NEVER" styleClass="page-scroll" stylesheets="@cinema.css"><content><VBox spacing="22" styleClass="page">
+    <Label text="Confitería y Combos" styleClass="page-title" wrapText="true"/>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="Agregar producto individual" styleClass="card-title"/><Label text="Producto base de confitería." styleClass="muted"/></VBox>
+        <GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children>
+            <VBox GridPane.columnIndex="0" spacing="7"><Label text="Nombre del producto" styleClass="field-label"/><TextField fx:id="txtNombre" promptText="Ej. Perro caliente"/></VBox>
+            <VBox GridPane.columnIndex="1" spacing="7"><Label text="Precio" styleClass="field-label"/><TextField fx:id="txtPrecio" promptText="Valor sin separadores de miles"/></VBox>
+        </children></GridPane>
+        <Button text="Registrar producto" onAction="#registrar" styleClass="primary-button"/>
+    </VBox>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="Armar Combo (Patrón Builder + Composite)" styleClass="card-title"/><Label text="Selecciona varios productos con Ctrl/Shift y define el porcentaje de descuento." styleClass="muted" wrapText="true"/></VBox>
+        <GridPane hgap="18"><columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints><children>
+            <VBox GridPane.columnIndex="0" spacing="7"><Label text="Nombre del combo" styleClass="field-label"/><TextField fx:id="txtNombreCombo" promptText="Ej. Combo Familiar"/></VBox>
+            <VBox GridPane.columnIndex="1" spacing="7"><Label text="Descuento (%)" styleClass="field-label"/><TextField fx:id="txtDescuentoCombo" promptText="Ej. 15"/></VBox>
+        </children></GridPane>
+        <ListView fx:id="lvSeleccionCombo" prefHeight="150"/>
+        <Button text="Construir combo" onAction="#crearCombo" styleClass="primary-button"/>
+    </VBox>
+    <VBox spacing="18" styleClass="card">
+        <VBox spacing="5"><Label text="Catálogo disponible" styleClass="card-title"/></VBox>
+        <ListView fx:id="lvProductos" prefHeight="190"/>
+    </VBox>
+</VBox></content></ScrollPane>
